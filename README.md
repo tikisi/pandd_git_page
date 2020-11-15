@@ -1,0 +1,2 @@
+# pandd_git_page
+企画開発部PandDでの1年生向けgit勉強会で使用した資料
