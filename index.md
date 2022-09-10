@@ -207,12 +207,20 @@ git branch feature-plus
 
 <img src="./log_image/08.png" style="zoom:80%;" />
 
-### git checkout 
+### git switch 
 
-`git checkout ブランチ名`で今いるブランチの切り替えができます。
+`git switch ブランチ名`で今いるブランチの切り替えができます。
 
 ```bash
-git checkout feature-plus
+git switch feature-plus
+```
+
+
+
+※ブランチの作成と切り替えを同時に行うこともできます。
+
+```bash
+git switch -c feature-plus
 ```
 
 ### 編集
@@ -251,10 +259,10 @@ git commit -m "足し算を実装"
 
 <img src="./log_image/09.png" style="zoom:80%;" />
 
-masterブランチにcheckoutしてlog再び確認してみます
+masterブランチにswitchしてlog再び確認してみます
 
 ```bash
-git checkout master
+git switch master
 git log
 ```
 
@@ -374,7 +382,7 @@ git reset --hard e8bc4ea
 ### 引き算機能を実装
 
 ```bash
-git checkout feature-minus # minusブランチに移動
+git switch feature-minus # minusブランチに移動
 ```
 
 引き算の機能を追加します。
@@ -408,7 +416,7 @@ git commit -m "引き算を実装"
 masterブランチにfeature-minusブランチでの変更を適用していきます。
 
 ```bash
-git checkout master
+git switch master
 git merge --no-ff feature-minus
 ```
 
@@ -485,6 +493,40 @@ logコマンドで確認すると
 
 これ以降、それぞれのメンバーをAさん、Bさんと呼びます。
 
+
+
+### ssh-keyの登録
+
+鍵を作成、登録しておくことでGitHubと安全に通信することができます。
+
+ターミナル上で鍵を作成しコピーします。
+
+```bash
+# 鍵の作成 
+ssh-keygen -t rsa
+
+# 公開鍵のコピー(windowsの人)
+cat ~/.ssh/id_rsa.pub | clip.exe
+# 公開鍵のコピー(macの人)
+cat ~/.ssh/id_rsa.pub | pbcopy
+```
+
+次にhttps://github.com/settings/keysにアクセスして鍵を登録します。
+
+`New SSH key`ボタンを押します。
+
+<img src="./img/ssh_key_01.png" style="zoom:80%;" />
+
+
+
+Titleには好きな名前を付けて、Keyの欄に先ほどコピーした鍵を貼り付けます。(Ctrl-v or Cmd-v)
+
+<img src="./img/ssh_key_02.png" style="zoom:80%;" />
+
+最後に`Add SSH key`ボタンを押して完了です。
+
+
+
 ### リモートリポジトリの作成
 
 Aさんはリモートリポジトリを作成していきます。
@@ -493,7 +535,7 @@ Aさんはリモートリポジトリを作成していきます。
 
 <img src="./img/create_repository.png" style="zoom:67%;" />
 
-次にHTTPSを選択して、横のURLをコピーします。
+次にSSHを選択して、横のURLをコピーします。
 
 <img src="./img/http.png" style="zoom:67%;" />
 
@@ -676,7 +718,7 @@ New issueから作成画面へ
 
 ```bash
 git branch feature-loop
-git checkout feature-loop
+git switch feature-loop
 ```
 
 main.cを編集
@@ -813,4 +855,7 @@ gitを勉強するにあたって参考になるサイトを紹介しておき�
 - <a href="https://www.slideshare.net/kotas/git-15276118?qid=ad0390a6-d824-4103-a3d8-b30a49cccbb1">こわくないgit</a>
 
   merge --no-ffの意味が分かると思います
+  
+- [GitHub実践入門](https://www.amazon.co.jp/GitHub%E5%AE%9F%E8%B7%B5%E5%85%A5%E9%96%80-Pull-Request%E3%81%AB%E3%82%88%E3%82%8B%E9%96%8B%E7%99%BA%E3%81%AE%E5%A4%89%E9%9D%A9-PRESS-plus/dp/477416366X)
 
+  少し古い本ですが、この資料の作成にあたり参考にしました
